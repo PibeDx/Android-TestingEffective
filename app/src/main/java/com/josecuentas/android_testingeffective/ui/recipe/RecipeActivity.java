@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatDelegate;
 import android.view.View;
 import android.widget.TextView;
 import com.josecuentas.android_testingeffective.R;
+import com.josecuentas.android_testingeffective.SharedPreferencesFavorites;
 import com.josecuentas.android_testingeffective.data.local.RecipeStore;
 import com.josecuentas.android_testingeffective.data.model.Recipe;
 
@@ -40,7 +41,10 @@ public class RecipeActivity extends AppCompatActivity {
             return;
         }
 
+        SharedPreferencesFavorites favorites = new SharedPreferencesFavorites(this);
+        boolean favorite = favorites.get(recipe.id);
         titleView.setText(recipe.title);
+        titleView.setSelected(false);
         descriptionView.setText(recipe.description);
     }
 }
