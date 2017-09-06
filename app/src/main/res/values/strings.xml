@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Android-TestingEffective</string>
+    <string name="recipe_not_found">Recipe not found</string>
 </resources>
