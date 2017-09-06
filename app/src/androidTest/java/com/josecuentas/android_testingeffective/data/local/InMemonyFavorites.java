@@ -25,4 +25,8 @@ public class InMemonyFavorites implements Favorites {
     public void put(String id, boolean value) {
         map.put(id, value);
     }
+
+    public void clear() {
+        map.clear();
+    }
 }

@@ -4,7 +4,11 @@ import android.content.Intent;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.rule.ActivityTestRule;
 import com.josecuentas.android_testingeffective.R;
+import com.josecuentas.android_testingeffective.data.local.InMemonyFavorites;
 import com.josecuentas.android_testingeffective.data.local.SharedPreferencesFavorites;
+import com.josecuentas.android_testingeffective.injection.TestRecipeApplication;
+
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import static android.support.test.espresso.Espresso.onView;
@@ -32,6 +36,15 @@ public class RecipeActivityTest {
             super.beforeActivityLaunched();
         }
     };
+
+    private InMemonyFavorites favorites;
+
+    @Before
+    public void clearFavorites() {
+        TestRecipeApplication app = (TestRecipeApplication) InstrumentationRegistry.getTargetContext().getApplicationContext();
+        favorites = (InMemonyFavorites) app.getFavorites();
+        favorites.clear();
+    }
 
     @Test
     public void recipeNotFound() {
