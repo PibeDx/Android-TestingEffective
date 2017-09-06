@@ -10,9 +10,9 @@ import java.io.InputStreamReader;
  */
 
 public class Recipe {
-
     private static final String ID_PREFIX = "id=";
     public static final String TITLE_PREFIX = "title=";
+
     public final String id;
     public final String title;
     public final String description;
@@ -52,8 +52,6 @@ public class Recipe {
         } catch (IOException e) {
             return null;
         }
-
-
         return new Recipe(id, title, descBuilder.toString());
     }
 }
