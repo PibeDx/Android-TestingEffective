@@ -35,4 +35,10 @@ public class SharedPreferencesFavorites {
         return !favorite;
     }
 
+    public void clear() {
+        SharedPreferences.Editor editor = pref.edit();
+        editor.clear();
+        editor.commit();
+    }
+
 }
