@@ -3,6 +3,8 @@ package com.josecuentas.android_testingeffective.data.local;
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
 
+import com.josecuentas.android_testingeffective.data.model.Recipe;
+
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -27,6 +29,16 @@ public class RecipeStoreTest {
         assertNotNull(store);
         assertNotNull(store.recipes);
         assertEquals(4, store.recipes.size());
+    }
+
+    @Test
+    public void getChocolatePudding() {
+        Context context = InstrumentationRegistry.getTargetContext();
+        RecipeStore store = new RecipeStore(context, "recipes");
+        Recipe recipe = store.getRecipe("cholodate_pudding");
+        assertNotNull(recipe);
+        assertEquals("cholodate_pudding", recipe.id);
+        assertEquals("Cholate Pudding", recipe.title);
     }
 
 }
