@@ -6,8 +6,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatDelegate;
 import android.view.View;
 import android.widget.TextView;
+
 import com.josecuentas.android_testingeffective.R;
-import com.josecuentas.android_testingeffective.SharedPreferencesFavorites;
+import com.josecuentas.android_testingeffective.data.local.SharedPreferencesFavorites;
 import com.josecuentas.android_testingeffective.data.local.RecipeStore;
 import com.josecuentas.android_testingeffective.data.model.Recipe;
 
@@ -28,12 +29,12 @@ public class RecipeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe);
 
-        TextView titleView = (TextView) findViewById(R.id.title);
+        final TextView titleView = (TextView) findViewById(R.id.title);
         TextView descriptionView = (TextView) findViewById(R.id.description);
 
         RecipeStore store = new RecipeStore(this, "recipes");
         String id = getIntent().getStringExtra(KEY_ID);
-        Recipe recipe = store.getRecipe(id);
+        final Recipe recipe = store.getRecipe(id);
 
         if (recipe == null) {
             titleView.setVisibility(View.GONE);
@@ -41,10 +42,17 @@ public class RecipeActivity extends AppCompatActivity {
             return;
         }
 
-        SharedPreferencesFavorites favorites = new SharedPreferencesFavorites(this);
-        boolean favorite = favorites.get(recipe.id);
+        final SharedPreferencesFavorites favorites = new SharedPreferencesFavorites(this);
+        final boolean favorite = favorites.get(recipe.id);
+
         titleView.setText(recipe.title);
-        titleView.setSelected(false);
+        titleView.setSelected(favorite);
+        titleView.setOnClickListener(new View.OnClickListener() {
+            @Override public void onClick(View view) {
+                boolean result = favorites.toogle(recipe.id);
+                titleView.setSelected(result);
+            }
+        });
         descriptionView.setText(recipe.description);
     }
 }
