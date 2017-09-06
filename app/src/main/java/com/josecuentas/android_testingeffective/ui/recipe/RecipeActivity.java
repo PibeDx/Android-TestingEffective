@@ -8,9 +8,11 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.josecuentas.android_testingeffective.R;
+import com.josecuentas.android_testingeffective.data.local.Favorites;
 import com.josecuentas.android_testingeffective.data.local.SharedPreferencesFavorites;
 import com.josecuentas.android_testingeffective.data.local.RecipeStore;
 import com.josecuentas.android_testingeffective.data.model.Recipe;
+import com.josecuentas.android_testingeffective.injection.RecipeApplication;
 
 /**
  * Created by jcuentas on 6/09/17.
@@ -42,8 +44,9 @@ public class RecipeActivity extends AppCompatActivity {
             return;
         }
 
-        final SharedPreferencesFavorites favorites = new SharedPreferencesFavorites(this);
-        final boolean favorite = favorites.get(recipe.id);
+        RecipeApplication app = (RecipeApplication) getApplication();
+        final Favorites favorites = app.getFavorites();
+        boolean favorite = favorites.get(recipe.id);
 
         titleView.setText(recipe.title);
         titleView.setSelected(favorite);

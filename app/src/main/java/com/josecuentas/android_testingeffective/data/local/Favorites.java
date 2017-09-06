@@ -5,7 +5,9 @@ package com.josecuentas.android_testingeffective.data.local;
  */
 
 public interface Favorites {
+
     boolean get(String id);
 
     boolean toogle(String id);
+
 }
