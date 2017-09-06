@@ -1,13 +1,11 @@
 package com.josecuentas.android_testingeffective.ui.recipe;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.util.AttributeSet;
+import android.support.v7.app.AppCompatDelegate;
 import android.view.View;
 import android.widget.TextView;
-
 import com.josecuentas.android_testingeffective.R;
 import com.josecuentas.android_testingeffective.data.local.RecipeStore;
 import com.josecuentas.android_testingeffective.data.model.Recipe;
@@ -19,6 +17,11 @@ import com.josecuentas.android_testingeffective.data.model.Recipe;
 public class RecipeActivity extends AppCompatActivity {
 
     public static final String KEY_ID = "id";
+
+    static {
+        //Permite aplicar tinta en vectores
+        AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
+    }
 
     @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
