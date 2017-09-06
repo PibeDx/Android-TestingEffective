@@ -27,8 +27,8 @@ public class RecipeActivityTest {
         @Override protected void beforeActivityLaunched() {
             //Limpiamos los datos del preference para poder ejecutar
             //el test "clickToFavorite" sin problemas
-            SharedPreferencesFavorites favorites = new SharedPreferencesFavorites(InstrumentationRegistry.getTargetContext());
-            favorites.clear();
+            //SharedPreferencesFavorites favorites = new SharedPreferencesFavorites(InstrumentationRegistry.getTargetContext());
+            //favorites.clear();
             super.beforeActivityLaunched();
         }
     };
