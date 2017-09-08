@@ -1,7 +1,5 @@
 package com.josecuentas.android_testingeffective.ui.recipe;
 
-import com.josecuentas.android_testingeffective.data.model.Recipe;
-
 /**
  * Created by jcuentas on 8/09/17.
  */
@@ -9,11 +7,14 @@ import com.josecuentas.android_testingeffective.data.model.Recipe;
 public interface RecipeContract {
 
     interface View {
-
+        void showRecipeNotFoundError();
+        void setTitle(String title);
+        void setDescription(String description);
+        void setFavorite(boolean favorite);
     }
 
     interface Listener {
-
+        void toggleFavorite();
     }
 
 }
