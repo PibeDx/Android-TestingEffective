@@ -1,31 +1,18 @@
 package com.josecuentas.android_testingeffective.ui.recipe;
 
 import android.content.Intent;
-import android.support.test.InstrumentationRegistry;
 import android.support.test.rule.ActivityTestRule;
 import com.josecuentas.android_testingeffective.R;
-import com.josecuentas.android_testingeffective.data.local.InMemonyFavorites;
-import com.josecuentas.android_testingeffective.injection.TestRecipeApplication;
 import com.josecuentas.android_testingeffective.test.RecipeRobot;
-
-import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
-import static android.support.test.espresso.Espresso.onView;
-import static android.support.test.espresso.action.ViewActions.click;
-import static android.support.test.espresso.assertion.ViewAssertions.matches;
-import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
-import static android.support.test.espresso.matcher.ViewMatchers.isSelected;
-import static android.support.test.espresso.matcher.ViewMatchers.withId;
-import static android.support.test.espresso.matcher.ViewMatchers.withText;
-import static org.hamcrest.CoreMatchers.not;
-
 /**
  * Created by jcuentas on 6/09/17.
  */
 public class RecipeActivityTest {
 
     public static final String CARROTS_ID = "creamed_carrots";
+    public static final String CARROTS_NAME = "Creamed Carrots";
     @Rule
     public ActivityTestRule<RecipeActivity> activityRule = new ActivityTestRule<RecipeActivity>(RecipeActivity.class, true, false) {
         @Override protected void beforeActivityLaunched() {
@@ -37,15 +24,6 @@ public class RecipeActivityTest {
         }
     };
 
-    private InMemonyFavorites favorites;
-
-    @Before
-    public void clearFavorites() {
-        TestRecipeApplication app = (TestRecipeApplication) InstrumentationRegistry.getTargetContext().getApplicationContext();
-        favorites = (InMemonyFavorites) app.getFavorites();
-        favorites.clear();
-    }
-
     @Test
     public void recipeNotFound() {
         new RecipeRobot()
@@ -56,23 +34,20 @@ public class RecipeActivityTest {
 
     @Test
     public void clickToFavorite() {
-        launchRecipe(CARROTS_ID);
-
-        onView(withId(R.id.title))
-                .check(matches(withText("Creamed Carrots")))
-                .check(matches(not(isSelected())))
-                .perform(click())
-                .check(matches(isSelected()));
+        new RecipeRobot()
+                .launch(activityRule, CARROTS_ID)
+                .title(CARROTS_NAME)
+                .noFavorite()
+                .clickFavorite()
+                .isFavorite();
     }
 
     @Test
     public void alreadyFavorite() {
-        favorites.put(CARROTS_ID, true);
-
-        launchRecipe(CARROTS_ID);
-
-        onView(withId(R.id.title))
-                .check(matches(isSelected()));
+        new RecipeRobot()
+                .setFavorite(CARROTS_ID)
+                .launch(activityRule, CARROTS_ID)
+                .isFavorite();
     }
 
     private void launchRecipe(String id) {
