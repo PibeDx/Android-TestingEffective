@@ -32,6 +32,9 @@ public class RecipePresenter implements RecipeContract.Listener {
     }
 
     @Override public void toggleFavorite() {
+        if (recipe == null) {
+            throw new IllegalStateException();
+        }
         boolean result = favorites.toogle(recipe.id);
         view.setFavorite(result);
     }
